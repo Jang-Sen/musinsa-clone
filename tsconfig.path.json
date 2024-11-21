@@ -10,6 +10,9 @@
       ],
       "@product/*": [
         "./src/product/*"
+      ],
+      "@user/*": [
+        "./src/user/*"
       ]
     }
   }
