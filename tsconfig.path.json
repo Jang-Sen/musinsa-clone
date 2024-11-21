@@ -7,6 +7,9 @@
       ],
       "@db/*": [
         "./src/db/*"
+      ],
+      "@product/*": [
+        "./src/product/*"
       ]
     }
   }
