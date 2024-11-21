@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 
 export class CreateUserDto {
@@ -9,7 +9,7 @@ export class CreateUserDto {
   })
   username: string;
 
-  @IsString()
+  @IsEmail()
   @ApiProperty({
     description: '사용자 이메일',
     example: 'dh789521@gmail.com',
@@ -42,6 +42,10 @@ export class CreateUserDto {
 
   @IsOptional()
   @IsString()
-  @ApiPropertyOptional({ description: '사용자 프로필 사진' })
+  @ApiPropertyOptional({
+    description: '사용자 프로필 사진',
+    example:
+      'https://s.gravatar.com/avatar/f70f5913e9db6b25d34122327b3117ae?s=200&r=pg&d=mm',
+  })
   profileImg?: string;
 }

@@ -20,6 +20,7 @@ services:
   postgres:
     container_name: musinsa_postgres
     image: postgres:alpine
+    restart: always
     env_file:
       - .env
     ports:

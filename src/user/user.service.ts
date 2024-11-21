@@ -8,7 +8,7 @@ import { CreateUserDto } from '@user/dto/create-user.dto';
 export class UserService {
   constructor(
     @InjectRepository(User)
-    readonly repository: Repository<User>,
+    private readonly repository: Repository<User>,
   ) {}
 
   // 생성 로직

@@ -9,7 +9,7 @@ import { UpdateProductDto } from '@product/dto/update-product.dto';
 export class ProductService {
   constructor(
     @InjectRepository(Product)
-    private repository: Repository<Product>,
+    private readonly repository: Repository<Product>,
   ) {}
 
   // 전체 조회 로직
