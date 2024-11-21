@@ -1,4 +1,22 @@
 services:
+  backend:
+    container_name: musinsa_backend
+    build:
+      dockerfile: Dockerfile
+      context: .
+      target: development
+    volumes:
+      - .:/usr/src/app
+    command: npm run start:dev
+    env_file:
+      - .env
+    ports:
+      - "${BACKEND_PORT}:${BACKEND_PORT}"
+    networks:
+      - musinsa_network
+    depends_on:
+      - postgres
+
   postgres:
     container_name: musinsa_postgres
     image: postgres:alpine
@@ -6,3 +24,9 @@ services:
       - .env
     ports:
       - "${POSTGRES_EXTERNAL_PORT}:${POSTGRES_PORT}"
+    networks:
+      - musinsa_network
+
+networks:
+  musinsa_network:
+    driver: bridge
