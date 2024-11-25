@@ -18,6 +18,13 @@ import { AppService } from '@root/app.service';
         POSTGRES_USER: Joi.string().required(),
         POSTGRES_PASSWORD: Joi.string().required(),
         POSTGRES_DB: Joi.string().required(),
+
+        MAIL_SERVICE: Joi.string().required(),
+        MAIL_USER: Joi.string().required(),
+        MAIL_PASSWORD: Joi.string().required(),
+
+        ACCESS_TOKEN_SECRET: Joi.string().required(),
+        ACCESS_TOKEN_EXPIRATION_TIME: Joi.string().required(),
       }),
 
       envFilePath: '.env',

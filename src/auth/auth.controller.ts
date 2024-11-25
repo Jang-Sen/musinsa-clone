@@ -25,6 +25,9 @@ export class AuthController {
   @ApiBody({ type: LoginUserDto })
   @ApiOperation({ summary: '로그인' })
   async login(@Body() dto: LoginUserDto) {
-    return await this.authService.login(dto);
+    const user = await this.authService.login(dto);
+    const token = this.authService.getAccessToken(user.id);
+
+    return { user, token };
   }
 }
