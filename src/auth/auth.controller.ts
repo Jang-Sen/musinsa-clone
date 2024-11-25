@@ -13,6 +13,11 @@ export class AuthController {
   @ApiBody({ type: CreateUserDto })
   @ApiOperation({ summary: '회원가입' })
   async signup(@Body() dto: CreateUserDto) {
+    // const user = await this.authService.signup(dto);
+
+    // 회원가입 시, 메일 전송
+    // await this.authService.sendMailWithUser(dto.email);
+
     return await this.authService.signup(dto);
   }
 

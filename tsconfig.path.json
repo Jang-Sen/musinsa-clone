@@ -8,6 +8,9 @@
       "@db/*": [
         "./src/db/*"
       ],
+      "@mail/*": [
+        "./src/mail/*"
+      ],
       "@product/*": [
         "./src/product/*"
       ],

@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
-import { DbModule } from './db/db.module';
-import { ProductModule } from './product/product.module';
-import { UserModule } from './user/user.module';
-import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
+import { ConfigModule } from '@nestjs/config';
+import { DbModule } from '@db/db.module';
+import { ProductModule } from '@product/product.module';
+import { UserModule } from '@user/user.module';
+import { AuthModule } from '@auth/auth.module';
+import { MailModule } from '@mail/mail.module';
+import { AppController } from '@root/app.controller';
+import { AppService } from '@root/app.service';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import * as Joi from 'joi';
     ProductModule,
     UserModule,
     AuthModule,
+    MailModule,
   ],
   controllers: [AppController],
   providers: [AppService],
