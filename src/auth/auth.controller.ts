@@ -1,10 +1,19 @@
-import { Body, Controller, Post, Req, UseGuards } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Post,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { AuthService } from '@auth/auth.service';
 import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateUserDto } from '@user/dto/create-user.dto';
 import { LoginUserDto } from '@user/dto/login-user.dto';
 import { LocalGuard } from '@auth/guards/local.guard';
 import { RequestUserInterface } from '@auth/interface/request-user.interface';
+import { GoogleGuard } from '@auth/guards/google.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -28,9 +37,20 @@ export class AuthController {
   @ApiBody({ type: LoginUserDto })
   @ApiOperation({ summary: '로그인' })
   async login(@Req() req: RequestUserInterface) {
-    const user = req.user;
-    const token = this.authService.getAccessToken(user.id);
+    return await this.authService.login(req);
+  }
 
-    return { user, token };
+  @Get('/google/callback')
+  @UseGuards(GoogleGuard)
+  @ApiOperation({ summary: '구글 로그인 콜백' })
+  async googleLoginCallback(@Req() req: RequestUserInterface) {
+    return await this.authService.login(req);
+  }
+
+  @Get('/google')
+  @UseGuards(GoogleGuard)
+  @ApiOperation({ summary: '구글 로그인' })
+  async googleLogin() {
+    return HttpStatus.OK;
   }
 }

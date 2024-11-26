@@ -7,6 +7,8 @@ import { MailService } from '@mail/mail.service';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { TokenPayloadInterface } from '@auth/interface/token-payload.interface';
+import { RequestUserInterface } from '@auth/interface/request-user.interface';
+import { Provider } from '@user/entities/provider.enum';
 
 @Injectable()
 export class AuthService {
@@ -19,11 +21,11 @@ export class AuthService {
 
   // 회원가입 로직
   async signup(dto: CreateUserDto) {
-    return await this.userService.create(dto);
+    return await this.userService.create({ ...dto, provider: Provider.LOCAL });
   }
 
-  // 로그인 로직
-  async login(dto: LoginUserDto) {
+  // 로그인 검증 로직
+  async loginValidate(dto: LoginUserDto) {
     const user = await this.userService.findBy('email', dto.email);
 
     const match = await bcrypt.compare(dto.password, user.password);
@@ -36,6 +38,14 @@ export class AuthService {
     }
 
     return user;
+  }
+
+  // 로그인 로직
+  async login(req: RequestUserInterface) {
+    const user = req.user;
+    const token = this.getAccessToken(user.id);
+
+    return { user, token };
   }
 
   // Access Token 발급 로직

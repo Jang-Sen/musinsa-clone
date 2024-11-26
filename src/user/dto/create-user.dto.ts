@@ -1,5 +1,6 @@
-import { IsEmail, IsOptional, IsString } from 'class-validator';
+import { IsEmail, IsEnum, IsOptional, IsString } from 'class-validator';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Provider } from '@user/entities/provider.enum';
 
 export class CreateUserDto {
   @IsString()
@@ -48,4 +49,12 @@ export class CreateUserDto {
       'https://s.gravatar.com/avatar/f70f5913e9db6b25d34122327b3117ae?s=200&r=pg&d=mm',
   })
   profileImg?: string;
+
+  @IsOptional()
+  @IsEnum(Provider)
+  @ApiPropertyOptional({
+    description: '로컬 로그인 or 소셜 로그인',
+    example: Provider.LOCAL,
+  })
+  provider?: Provider;
 }

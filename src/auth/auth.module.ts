@@ -5,10 +5,11 @@ import { UserModule } from '@user/user.module';
 import { MailModule } from '@mail/mail.module';
 import { JwtModule } from '@nestjs/jwt';
 import { LocalStrategy } from '@auth/strategies/local.strategy';
+import { GoogleStrategy } from '@auth/strategies/google.strategy';
 
 @Module({
   imports: [UserModule, JwtModule.register({}), MailModule],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy],
+  providers: [AuthService, LocalStrategy, GoogleStrategy],
 })
 export class AuthModule {}
