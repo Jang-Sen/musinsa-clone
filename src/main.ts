@@ -11,6 +11,8 @@ async function bootstrap() {
   const configService: ConfigService = app.get(ConfigService);
   const port = configService.get('BACKEND_PORT') ?? 7070;
 
+  app.setGlobalPrefix('api'); // url api 추가
+
   // Swagger
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Musinsa-Clone API')
