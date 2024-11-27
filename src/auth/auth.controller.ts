@@ -15,6 +15,7 @@ import { LocalGuard } from '@auth/guards/local.guard';
 import { RequestUserInterface } from '@auth/interface/request-user.interface';
 import { GoogleGuard } from '@auth/guards/google.guard';
 import { KakaoGuard } from '@auth/guards/kakao.guard';
+import { NaverGuard } from '@auth/guards/naver.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -55,6 +56,13 @@ export class AuthController {
     return await this.authService.login(req);
   }
 
+  @Get('/naver/callback')
+  @UseGuards(NaverGuard)
+  @ApiOperation({ summary: '네이버 로그인 콜백' })
+  async naverLoginCallback(@Req() req: RequestUserInterface) {
+    return await this.authService.login(req);
+  }
+
   @Get('/google')
   @UseGuards(GoogleGuard)
   @ApiOperation({ summary: '구글 로그인' })
@@ -66,6 +74,13 @@ export class AuthController {
   @UseGuards(KakaoGuard)
   @ApiOperation({ summary: '카카오 로그인' })
   async kakaoLogin() {
+    return HttpStatus.OK;
+  }
+
+  @Get('/naver')
+  @UseGuards(NaverGuard)
+  @ApiOperation({ summary: '네이버 로그인' })
+  async naverLogin() {
     return HttpStatus.OK;
   }
 }
